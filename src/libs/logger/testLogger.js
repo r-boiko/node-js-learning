@@ -2,10 +2,8 @@ import logger from './logger.js';
 
 const log = logger.getLogger('testLogger.js');
 
-log.info(1);
-log.error(2);
-log.error(3);
-log.info(4);
-log.info(5);
-log.warn(6);
-log.info(7);
+log.error(1);
+log.warn(2);
+log.info(3);
+log.debug(4);
+log.trace(5);
