@@ -1,4 +1,4 @@
 {
-  "logLevel": "WARN",
-  "appender": "console"
+  "logLevel": "TRACE",
+  "appender": "CONSOLE"
 }

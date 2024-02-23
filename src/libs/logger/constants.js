@@ -16,6 +16,7 @@ const SCORE_LEVEL = {
 
 const APPENDER = {
   CONSOLE: 'CONSOLE',
+  FILE: 'FILE',
 };
 
 export { LEVEL, SCORE_LEVEL, APPENDER };
