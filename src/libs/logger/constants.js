@@ -1,17 +1,17 @@
-const level = {
+const LEVEL = {
   ERROR: 'ERROR',
   WARN: 'WARN',
   INFO: 'INFO',
 };
 
-const scoreLevel = {
-  [level.ERROR]: 1,
-  [level.WARN]: 2,
-  [level.INFO]: 3,
+const SCORE_LEVEL = {
+  [LEVEL.ERROR]: 1,
+  [LEVEL.WARN]: 2,
+  [LEVEL.INFO]: 3,
 };
 
-const appender = {
+const APPENDER = {
   CONSOLE: 'CONSOLE',
 };
 
-export { level, scoreLevel, appender };
+export { LEVEL, SCORE_LEVEL, APPENDER };

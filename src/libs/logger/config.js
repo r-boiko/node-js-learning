@@ -1,16 +1,16 @@
-import * as constants from './constants.js';
+import { LEVEL, SCORE_LEVEL, APPENDER } from './constants.js';
 
 const defaultConfig = {
-  logLevel: constants.level.INFO,
-  scoreLevel: constants.scoreLevel[constants.level.INFO],
-  appender: constants.appender.CONSOLE,
+  logLevel: LEVEL.INFO,
+  scoreLevel: SCORE_LEVEL[LEVEL.INFO],
+  appender: APPENDER.CONSOLE,
 };
 
-function enrichConfig(config) {
-  config.scoreLevel = constants.scoreLevel[config.logLevel];
-}
+const enrichConfig = (config) => {
+  config.scoreLevel = SCORE_LEVEL[config.logLevel];
+};
 
-function initConfig() {
+const initConfig = () => {
   const config = defaultConfig;
 
   const logLevel = process.env.LOG_LEVEL?.toUpperCase();
@@ -29,7 +29,8 @@ function initConfig() {
   enrichConfig(config);
 
   return config;
-}
+};
 
 const config = initConfig();
+
 export default config;

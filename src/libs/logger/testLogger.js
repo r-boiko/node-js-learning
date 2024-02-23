@@ -1,6 +1,6 @@
 import logger from './logger.js';
 
-const log = logger.getLogger('app.js');
+const log = logger.getLogger('testLogger.js');
 
 log.info(1);
 log.error(2);
