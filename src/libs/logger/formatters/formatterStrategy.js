@@ -1,5 +1,5 @@
 import { FORMATTER } from '../constants.js';
-import config from '../config.js';
+import config from '../config/config.js';
 import defaultFormatter from './default.js';
 import jsonFormatter from './json.js';
 

@@ -1,5 +1,5 @@
 {
   "logLevel": "TRACE",
-  "appender": "CONSOLE",
+  "appender": "CONSOLE,FILE",
   "formatter": "JSON"
 }

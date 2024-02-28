@@ -1,5 +1,5 @@
 import { APPENDER } from '../constants.js';
-import config from '../config.js';
+import config from '../config/config.js';
 import consoleAppender from './console.js';
 import fileAppender from './file.js';
 
@@ -8,10 +8,12 @@ const appenders = {
   [APPENDER.FILE]: fileAppender,
 };
 
-const getAppender = () => {
-  if (!appenders[config.appender]) return consoleAppender;
+const getAppenders = () => {
+  return config.appender.split(',').map((appender) => {
+    if (!appenders[appender]) return consoleAppender;
 
-  return appenders[config.appender];
+    return appenders[appender];
+  });
 };
 
-export { getAppender };
+export { getAppenders };
