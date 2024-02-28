@@ -1,7 +1,5 @@
-import { formatMessage } from '../utils/formatMessage.js';
-
-const log = (date, level, category, message) => {
-  console.log(formatMessage(date, level, category, message));
+const log = ({ data, formatter }) => {
+  console.log(formatter.formatMessage(data));
 };
 
 export default { log };

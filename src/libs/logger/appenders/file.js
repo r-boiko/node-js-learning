@@ -1,18 +1,18 @@
 import { appendFile } from 'node:fs/promises';
-import { formatMessage } from '../utils/formatMessage.js';
 import { LEVEL } from '../constants.js';
+import { generateFilePath } from '../utils/generateFilePath.js';
 
-const log = async (date, level, category, message) => {
+const log = async ({ data, formatter: { formatMessage } }) => {
   await appendFile(
-    './logs/app.txt',
-    formatMessage(date, level, category, message, '\n'),
+    generateFilePath({ fileName: 'app' }),
+    formatMessage(data),
     'utf-8',
   );
 
-  if (level === LEVEL.ERROR) {
+  if (data.level === LEVEL.ERROR) {
     await appendFile(
-      './logs/app_error.txt',
-      formatMessage(date, level, category, message, '\n'),
+      generateFilePath({ fileName: 'app_error' }),
+      formatMessage(data),
       'utf-8',
     );
   }

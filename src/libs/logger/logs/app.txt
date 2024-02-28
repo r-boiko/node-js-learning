@@ -1,5 +1,6 @@
-date: 1708703852638, category: testLogger.js, level: ERROR, message: 1
-date: 1708703852638, category: testLogger.js, level: WARN, message: 2
-date: 1708703852638, category: testLogger.js, level: INFO, message: 3
-date: 1708703852638, category: testLogger.js, level: DEBUG, message: 4
-date: 1708703852638, category: testLogger.js, level: TRACE, message: 5
+date: 1709133464175, category: testLogger.js, level: ERROR, message: 1
+date: 1709133464176, category: testLogger.js, level: WARN, message: 2
+date: 1709133464176, category: testLogger.js, level: INFO, message: 3
+{"date":1709133478267,"category":"testLogger.js","level":"ERROR","message":1}
+{"date":1709133478267,"category":"testLogger.js","level":"WARN","message":2}
+{"date":1709133478267,"category":"testLogger.js","level":"INFO","message":3}
