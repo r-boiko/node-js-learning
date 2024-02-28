@@ -4,19 +4,19 @@ import * as appenderStrategy from './appenders/appenderStrategy.js';
 import * as formatterStrategy from './formatters/formatterStrategy.js';
 
 const logger = (category) => ({
-  info: (message) => {
+  info: (...message) => {
     executeLog(LEVEL.INFO, category, message);
   },
-  warn: (message) => {
+  warn: (...message) => {
     executeLog(LEVEL.WARN, category, message);
   },
-  error: (message) => {
+  error: (...message) => {
     executeLog(LEVEL.ERROR, category, message);
   },
-  debug: (message) => {
+  debug: (...message) => {
     executeLog(LEVEL.DEBUG, category, message);
   },
-  trace: (message) => {
+  trace: (...message) => {
     executeLog(LEVEL.TRACE, category, message);
   },
 });
