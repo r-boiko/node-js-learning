@@ -1,10 +1,12 @@
 import fs from 'fs';
-import { LEVEL, SCORE_LEVEL, APPENDER } from './constants.js';
+import { LEVEL, SCORE_LEVEL, APPENDER, FORMATTER } from '../constants.js';
+import { validateEnvProperties, validateEnvProperty } from './validator.js';
 
 const defaultConfig = {
   logLevel: LEVEL.INFO,
   scoreLevel: SCORE_LEVEL[LEVEL.INFO],
   appender: APPENDER.CONSOLE,
+  formatter: FORMATTER.DEFAULT,
 };
 
 const getConfigFile = () => {
@@ -30,13 +32,18 @@ const initConfig = () => {
 
   const logLevel = process.env.LOG_LEVEL?.toUpperCase();
   const appender = process.env.LOG_APPENDER?.toUpperCase();
+  const formatter = process.env.LOG_FORMATTER?.toUpperCase();
 
-  if (logLevel && LEVEL[logLevel]) {
+  if (validateEnvProperty({ property: logLevel, constant: LEVEL })) {
     config.logLevel = logLevel;
   }
 
-  if (appender && APPENDER[appender]) {
+  if (validateEnvProperties({ properties: appender, constant: APPENDER })) {
     config.appender = appender;
+  }
+
+  if (validateEnvProperty({ property: formatter, constant: FORMATTER })) {
+    config.formatter = formatter;
   }
 
   enrichConfig(config);

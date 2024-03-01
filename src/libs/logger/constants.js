@@ -19,4 +19,9 @@ const APPENDER = {
   FILE: 'FILE',
 };
 
-export { LEVEL, SCORE_LEVEL, APPENDER };
+const FORMATTER = {
+  DEFAULT: 'DEFAULT',
+  JSON: 'JSON',
+};
+
+export { LEVEL, SCORE_LEVEL, APPENDER, FORMATTER };

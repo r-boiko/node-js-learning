@@ -1,1 +1,2 @@
-date: 1708703852638, category: testLogger.js, level: ERROR, message: 1
+date: 1709133464175, category: testLogger.js, level: ERROR, message: 1
+{"date":1709133478267,"category":"testLogger.js","level":"ERROR","message":1}
