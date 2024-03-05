@@ -4,6 +4,10 @@ import { SCORE_LEVEL, LEVEL, EVENT_TYPES } from './constants.js';
 import * as appenderStrategy from './appenders/appenderStrategy.js';
 import * as formatterStrategy from './formatters/formatterStrategy.js';
 
+const ee = new EventEmitter();
+const appenders = appenderStrategy.getAppenders();
+const formatter = formatterStrategy.getFormatter();
+
 const logger = (category) => ({
   info: (...message) => {
     executeLog(LEVEL.INFO, category, message);
@@ -22,14 +26,8 @@ const logger = (category) => ({
   },
 });
 
-const ee = new EventEmitter();
-const appenders = appenderStrategy.getAppenders();
-const formatter = formatterStrategy.getFormatter();
-
 const executeLog = (level, category, message) => {
   if (SCORE_LEVEL[level] <= config.scoreLevel) {
-    for (const appender of appenders) appender.log({ ee });
-
     ee.emit(EVENT_TYPES.LOG, {
       data: {
         date: Date.now(),
@@ -42,6 +40,16 @@ const executeLog = (level, category, message) => {
   }
 };
 
+const applyAppenders = (appenders) => {
+  for (const appender of appenders) appender.log({ ee });
+};
+
+const initLogger = (category) => {
+  applyAppenders(appenders);
+
+  return logger(category);
+};
+
 export default {
-  getLogger: (category) => logger(category),
+  getLogger: (category) => initLogger(category),
 };
