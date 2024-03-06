@@ -1,8 +1,15 @@
+import { Readable } from 'stream';
 import { EVENT_TYPES } from '../constants.js';
 
 const log = ({ ee }) => {
   ee.on(EVENT_TYPES.LOG, ({ data, formatter }) => {
-    console.log(formatter.formatMessage(data));
+    const readable = new Readable({ read() {} });
+    readable.pipe(process.stdout);
+    readable.push(formatter.formatMessage(data));
+
+    process.on('beforeExit', () => {
+      readable.push(null);
+    });
   });
 };
 
