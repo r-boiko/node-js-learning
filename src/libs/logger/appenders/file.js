@@ -1,21 +1,29 @@
-import { appendFile } from 'node:fs/promises';
+import { createWriteStream } from 'node:fs';
 import { EVENT_TYPES, LEVEL } from '../constants.js';
 import { generateFilePath } from '../utils/generateFilePath.js';
 
-const log = async ({ ee }) => {
-  ee.on(EVENT_TYPES.LOG, async ({ data, formatter: { formatMessage } }) => {
-    await appendFile(
+const log = ({ ee }) => {
+  ee.on(EVENT_TYPES.LOG, ({ data, formatter: { formatMessage } }) => {
+    const writeStream = createWriteStream(
       generateFilePath({ fileName: 'app' }),
-      formatMessage(data),
-      'utf-8',
+      {
+        flags: 'a',
+        encoding: 'utf-8',
+      },
     );
+    writeStream.write(formatMessage(data));
+    writeStream.end();
 
     if (data.level === LEVEL.ERROR) {
-      await appendFile(
+      const writeStreamError = createWriteStream(
         generateFilePath({ fileName: 'app_error' }),
-        formatMessage(data),
-        'utf-8',
+        {
+          flags: 'a',
+          encoding: 'utf-8',
+        },
       );
+      writeStreamError.write(formatMessage(data));
+      writeStreamError.end();
     }
   });
 };
