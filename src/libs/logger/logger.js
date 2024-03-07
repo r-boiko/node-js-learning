@@ -3,6 +3,7 @@ import config from './config/config.js';
 import { SCORE_LEVEL, LEVEL, EVENT_TYPES } from './constants.js';
 import * as appenderStrategy from './appenders/appenderStrategy.js';
 import * as formatterStrategy from './formatters/formatterStrategy.js';
+import * as streams from './utils/streams.js';
 
 const ee = new EventEmitter();
 const appenders = appenderStrategy.getAppenders();
@@ -41,7 +42,7 @@ const executeLog = (level, category, message) => {
 };
 
 const applyAppenders = (appenders) => {
-  for (const appender of appenders) appender.log({ ee });
+  for (const appender of appenders) appender.log({ ee, streams });
 };
 
 const initLogger = (category) => {
