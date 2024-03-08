@@ -1,4 +1,4 @@
-export const generateHash = (length) => {
+export const generateHash = (length = 5) => {
   let result = '';
   const characters =
     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
