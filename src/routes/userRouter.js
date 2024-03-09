@@ -20,8 +20,9 @@ userRouter.post('/create', (req, res) => {
 userRouter.get('/all', (req, res) => {
   const data = userService.getAll();
 
-  if (!data) {
+  if (userService.isEmpty()) {
     res.status(404).json({ error: 'Not found' });
+    return;
   }
 
   res.status(200).json(data);

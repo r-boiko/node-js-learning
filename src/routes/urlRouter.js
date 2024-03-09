@@ -10,6 +10,7 @@ urlRouter.post('/add', (req, res) => {
     code: generateHash(),
     name: req.body.name,
     url: req.body.url,
+    visits: 0,
     created_time: Date.now(),
     user: loggedUser,
   };
@@ -19,11 +20,12 @@ urlRouter.post('/add', (req, res) => {
   res.status(200).json(data);
 });
 
-urlRouter.get('/:code', (req, res) => {
+urlRouter.get('/info/:code', (req, res) => {
   const data = urlService.get(req.params.code);
 
   if (!data) {
     res.status(404).json({ error: 'Not found' });
+    return;
   }
 
   res.status(200).json(data);
