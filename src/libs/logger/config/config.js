@@ -1,5 +1,11 @@
 import fs from 'fs';
-import { LEVEL, SCORE_LEVEL, APPENDER, FORMATTER } from '../constants.js';
+import {
+  LEVEL,
+  SCORE_LEVEL,
+  APPENDER,
+  FORMATTER,
+  NETWORK,
+} from '../constants.js';
 import { validateEnvProperties, validateEnvProperty } from './validator.js';
 
 const defaultConfig = {
@@ -7,6 +13,8 @@ const defaultConfig = {
   scoreLevel: SCORE_LEVEL[LEVEL.INFO],
   appender: APPENDER.CONSOLE,
   formatter: FORMATTER.DEFAULT,
+  port: NETWORK.PORT,
+  hostname: NETWORK.HOSTNAME,
 };
 
 const getConfigFile = () => {
