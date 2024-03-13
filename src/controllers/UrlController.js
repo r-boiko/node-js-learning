@@ -13,20 +13,19 @@ export default class UrlController extends Router {
 
   init = () => {
     this.get('/info/:code', (req, res) => {
-      const url = this.urlService.getUrlByCode(req.params.code);
+      const selectedUrl = this.urlService.getUrlByCode(req.params.code);
 
-      if (!url) {
+      if (!selectedUrl) {
         res.status(404).json({ error: 'Not found' });
         return;
       }
 
-      res.status(200).json(url);
+      res.status(200).json(selectedUrl);
     });
 
     this.post('/add', (req, res) => {
       const { name, url } = req.body;
       const loggedUser = this.userService.getLoggedUser();
-      console.log('loggedUser', loggedUser);
 
       const createdUrl = this.urlService.create(name, url, loggedUser);
 

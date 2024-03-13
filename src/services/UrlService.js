@@ -19,4 +19,8 @@ export default class UrlService extends Instance {
   getUrlByCode(code) {
     return this.urlRepository.get(code);
   }
+
+  updateVisitsByCode(code) {
+    return this.urlRepository.updateVisits(code);
+  }
 }
