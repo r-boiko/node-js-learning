@@ -1,6 +1,6 @@
 import express from 'express';
 import { generateHash } from '../utils.js';
-import * as userService from '../services/userService.js';
+import * as userService from '../services/userServiceOld.js';
 
 export const userRouter = new express.Router();
 

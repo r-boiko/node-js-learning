@@ -1,7 +1,7 @@
 import express from 'express';
 import { generateHash } from '../utils.js';
 import * as urlService from '../services/urlService.js';
-import { loggedUser } from '../services/userService.js';
+import { loggedUser } from '../services/userServiceOld.js';
 
 export const urlRouter = new express.Router();
 
