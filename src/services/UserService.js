@@ -1,8 +1,10 @@
 import UserRepository from '../repositories/UserRepository.js';
 import UserModel from '../models/UserModel.js';
+import Instance from '../helpers/Instance.js';
 
-export default class UserService {
+export default class UserService extends Instance {
   constructor() {
+    super();
     this.userRepository = new UserRepository();
   }
 
@@ -10,6 +12,8 @@ export default class UserService {
     const newUser = new UserModel(name, password);
 
     this.userRepository.save(newUser);
+
+    return newUser;
   }
 
   getUsersPublicData() {
@@ -45,17 +49,7 @@ export default class UserService {
     return Array.from(users).length === 0;
   }
 
-  // checkPassword(name, password) {
-  //   if (!name || !password) {
-  //     return false;
-  //   }
-  //
-  //   const user = this.userRepository.getUserByName(name);
-  //
-  //   if (user?.password === password) {
-  //     return true;
-  //   }
-  //
-  //   return false;
-  // }
+  getLoggedUser() {
+    return this.userRepository.loggedUser;
+  }
 }

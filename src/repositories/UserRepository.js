@@ -1,7 +1,7 @@
 const userStorage = new Map();
 
 export default class UserRepository {
-  loggedUser = null;
+  _loggedUser = null;
 
   save(user) {
     userStorage.set(user.userId, user);
@@ -14,5 +14,13 @@ export default class UserRepository {
 
   getAll() {
     return userStorage.values();
+  }
+
+  set loggedUser(user) {
+    this._loggedUser = user;
+  }
+
+  get loggedUser() {
+    return this._loggedUser;
   }
 }

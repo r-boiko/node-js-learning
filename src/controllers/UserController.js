@@ -4,7 +4,7 @@ import UserService from '../services/UserService.js';
 export default class UserController extends Router {
   constructor() {
     super();
-    this.userService = new UserService();
+    this.userService = UserService.getInstance();
 
     this.init();
   }
@@ -28,9 +28,9 @@ export default class UserController extends Router {
     this.post('/create', (req, res) => {
       const { name, password } = req.body;
 
-      this.userService.create(name, password);
+      const createdUser = this.userService.create(name, password);
 
-      res.status(200).json({ name, password });
+      res.status(200).json(createdUser);
     });
   };
 }
