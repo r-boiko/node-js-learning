@@ -16,13 +16,14 @@ export default class UserController extends Router {
 
     this.get('/all', (req, res) => {
       const users = this.userService.getUsersPublicData();
+      const loggedUser = this.userService.getLoggedUser();
 
       if (this.userService.isEmpty()) {
         res.status(404).json({ error: 'Not found' });
         return;
       }
 
-      res.json(users);
+      res.render('users', { users, loggedUser });
     });
 
     this.get('/create', (req, res) => {

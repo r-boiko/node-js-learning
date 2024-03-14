@@ -5,7 +5,6 @@ export default class UserRepository {
 
   save(user) {
     userStorage.set(user.userId, user);
-    this.loggedUser = user.userId;
   }
 
   getUserByName(name) {

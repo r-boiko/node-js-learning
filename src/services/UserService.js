@@ -54,6 +54,14 @@ export default class UserService extends Instance {
     return this.userRepository.loggedUser;
   }
 
+  setLoggedUser(name) {
+    if (!name) return false;
+
+    const user = this.userRepository.getUserByName(name);
+
+    this.userRepository.loggedUser = user.userId;
+  }
+
   checkPassword(name, password) {
     if (!name || !password) return false;
 
