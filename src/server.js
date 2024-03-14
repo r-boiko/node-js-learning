@@ -1,6 +1,6 @@
 import express from 'express';
 import path from 'path';
-import authMiddleware from './middlewares/authMiddleware.js';
+import loggedUserMiddleware from './middlewares/loggedUserMiddleware.js';
 import UserController from './controllers/UserController.js';
 import UrlController from './controllers/UrlController.js';
 import CodeController from './controllers/CodeController.js';
@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
   res.redirect(302, '/login');
 });
 
-app.use(authMiddleware);
+app.use(loggedUserMiddleware);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/user', new UserController());

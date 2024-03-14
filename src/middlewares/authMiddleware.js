@@ -5,14 +5,8 @@ const userService = UserService.getInstance();
 export default (req, res, next) => {
   const auth = req.header('Authorization');
   const users = userService.getUsersAuthData();
-  const loggedUser = userService.getLoggedUser();
 
-  if (
-    loggedUser ||
-    req.url.includes('user/create') ||
-    req.url.includes('login') ||
-    req.url.includes('css')
-  ) {
+  if (req.url.includes('user/create')) {
     next();
     return;
   }
