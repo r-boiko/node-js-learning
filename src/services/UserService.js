@@ -5,6 +5,7 @@ import Instance from '../helpers/Instance.js';
 export default class UserService extends Instance {
   constructor() {
     super();
+
     this.userRepository = new UserRepository();
   }
 
@@ -51,5 +52,13 @@ export default class UserService extends Instance {
 
   getLoggedUser() {
     return this.userRepository.loggedUser;
+  }
+
+  checkPassword(name, password) {
+    if (!name || !password) return false;
+
+    const user = this.userRepository.getUserByName(name);
+
+    return user?.password === password;
   }
 }

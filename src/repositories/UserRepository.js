@@ -8,8 +8,14 @@ export default class UserRepository {
     this.loggedUser = user.userId;
   }
 
-  get(userId) {
-    return userStorage.get(userId);
+  getUserByName(name) {
+    for (let user of userStorage.values()) {
+      if (user.name === name) {
+        return user;
+      }
+    }
+
+    return null;
   }
 
   getAll() {

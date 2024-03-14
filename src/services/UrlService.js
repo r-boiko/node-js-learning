@@ -5,6 +5,7 @@ import Instance from '../helpers/Instance.js';
 export default class UrlService extends Instance {
   constructor() {
     super();
+
     this.urlRepository = new UrlRepository();
   }
 

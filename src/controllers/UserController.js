@@ -4,12 +4,12 @@ import UserService from '../services/UserService.js';
 export default class UserController extends Router {
   constructor() {
     super();
-    this.userService = UserService.getInstance();
 
-    this.init();
+    this.userService = UserService.getInstance();
+    this.initRoutes();
   }
 
-  init = () => {
+  initRoutes = () => {
     this.get('/', (req, res) => {
       res.json({ message: 'user service main path' });
     });

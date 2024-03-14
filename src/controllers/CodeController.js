@@ -4,12 +4,12 @@ import UrlService from '../services/UrlService.js';
 export default class CodeController extends Router {
   constructor() {
     super();
-    this.urlService = UrlService.getInstance();
 
-    this.init();
+    this.urlService = UrlService.getInstance();
+    this.initRoutes();
   }
 
-  init = () => {
+  initRoutes = () => {
     this.get('/:code', (req, res) => {
       const selectedUrl = this.urlService.getUrlByCode(req.params.code);
 

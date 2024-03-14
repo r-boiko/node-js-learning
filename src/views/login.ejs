@@ -1,0 +1,17 @@
+<%- include('./partials/header'); -%>
+
+<div class="container">
+    <h1 class="title">Login page</h1>
+    <form class="login-form" action="/login" method="POST">
+        <input type="text" name="name" placeholder="Enter your name">
+        <input type="password" name="password" placeholder="Enter your password">
+        <input type="submit" value="Login">
+
+        <% if (locals.errorMessage) { %>
+            <span class="error"><%= locals.errorMessage %></span>
+        <% } %>
+
+    </form>
+</div>
+
+<%- include('./partials/footer'); -%>
