@@ -25,12 +25,22 @@ export default class UserController extends Router {
       res.json(users);
     });
 
+    this.get('/create', (req, res) => {
+      res.render('create-user');
+    });
+
     this.post('/create', (req, res) => {
       const { name, password } = req.body;
 
-      const createdUser = this.userService.create(name, password);
+      if (this.userService.isAlreadyExists(name)) {
+        res.render('create-user', { errorMessage: 'User name already exist' });
+      } else {
+        this.userService.create(name, password);
 
-      res.status(200).json(createdUser);
+        res.render('login', {
+          successMessage: 'Created successfully, please login',
+        });
+      }
     });
   };
 }

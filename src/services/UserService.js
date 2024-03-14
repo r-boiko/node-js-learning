@@ -61,4 +61,12 @@ export default class UserService extends Instance {
 
     return user?.password === password;
   }
+
+  isAlreadyExists(name) {
+    if (!name) return false;
+
+    const user = this.userRepository.getUserByName(name);
+
+    return !!user;
+  }
 }

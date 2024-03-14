@@ -15,9 +15,9 @@ export default class LoginController extends Router {
     });
 
     this.post('/', (req, res) => {
-      const { login, password } = req.body;
+      const { name, password } = req.body;
 
-      if (this.userService.checkPassword(login, password)) {
+      if (this.userService.checkPassword(name, password)) {
         res.redirect(302, '/user');
       } else {
         res.render('login', { errorMessage: 'Unauthorized' });
