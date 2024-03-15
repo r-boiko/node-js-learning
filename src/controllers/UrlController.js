@@ -23,6 +23,13 @@ export default class UrlController extends Router {
       res.status(200).json(selectedUrl);
     });
 
+    this.get('/all', (req, res) => {
+      const loggedUser = this.userService.getLoggedUser();
+      const urls = this.urlService.getUrlsByUser(loggedUser);
+
+      res.render('url/all', { urls });
+    });
+
     this.post('/add', (req, res) => {
       const { name, url } = req.body;
       const loggedUser = this.userService.getLoggedUser();

@@ -21,6 +21,12 @@ export default class UrlService extends Instance {
     return this.urlRepository.get(code);
   }
 
+  getUrlsByUser(user) {
+    if (!user) return null;
+
+    return this.urlRepository.getUrlsByKey('user', user);
+  }
+
   updateVisitsByCode(code) {
     return this.urlRepository.updateVisits(code);
   }

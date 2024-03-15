@@ -8,7 +8,7 @@ export default class UserRepository {
   }
 
   getUserByName(name) {
-    for (let user of userStorage.values()) {
+    for (let user of this.getAll()) {
       if (user.name === name) {
         return user;
       }

@@ -1,0 +1,33 @@
+<%- include('../partials/header'); -%>
+
+<%- include('../partials/navigation'); -%>
+
+<div class="container">
+    <h1 class="title">All urls</h1>
+
+    <form class="form" id="addUrlForm">
+        <input type="text" name="name" id="name" placeholder="Enter url name" required>
+        <input type="text" name="url" id="url" placeholder="Enter url path" required>
+        <input type="submit" value="Create">
+    </form>
+
+    <ul class="list" id="urlList">
+
+        <% if (!urls.length) { %>
+            <li class="item" id="empty">Empty list</li>
+        <% } %>
+
+        <% urls.forEach((url) => { %>
+            <li class="item">
+                <span>name: <%= url.name %>,</span>
+                <span>url: <a href="<%= url.url %>" target="_blank"><%= url.url %></a></span>
+            </li>
+        <% }); %>
+
+    </ul>
+
+</div>
+
+<script src="/script/addUrl.js"></script>
+
+<%- include('../partials/footer'); -%>

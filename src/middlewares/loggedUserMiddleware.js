@@ -15,5 +15,5 @@ export default (req, res, next) => {
     return;
   }
 
-  res.status(401).json({ error: 'Unauthorized' });
+  res.redirect(302, '/login');
 };

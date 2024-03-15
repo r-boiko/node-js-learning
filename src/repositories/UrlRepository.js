@@ -9,6 +9,22 @@ export default class UrlRepository {
     return urlStorage.get(code);
   }
 
+  getAll() {
+    return urlStorage.values();
+  }
+
+  getUrlsByKey(key, value) {
+    const result = [];
+
+    for (let url of this.getAll()) {
+      if (url[key] === value) {
+        result.push(url);
+      }
+    }
+
+    return result;
+  }
+
   updateVisits(code) {
     const prevValue = this.get(code);
 
