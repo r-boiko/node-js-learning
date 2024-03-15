@@ -1,11 +1,12 @@
-import * as userService from '../services/userService.js';
+import UserService from '../services/UserService.js';
 
-const users = userService.getAll();
+const userService = UserService.getInstance();
 
 export default (req, res, next) => {
   const auth = req.header('Authorization');
+  const users = userService.getUsersAuthData();
 
-  if (req.url.includes('user')) {
+  if (req.url.includes('user/create')) {
     next();
     return;
   }

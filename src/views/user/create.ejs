@@ -1,0 +1,18 @@
+<%- include('../partials/header'); -%>
+
+<div class="container">
+    <h1 class="title">Create user</h1>
+    <form class="form" action="/user/create" method="POST">
+        <input type="text" name="name" placeholder="Enter your name" required>
+        <input type="password" name="password" placeholder="Enter your password" required>
+        <input type="submit" value="Create">
+
+        <% if (locals.errorMessage) { %>
+            <span class="error"><%= locals.errorMessage %></span>
+        <% } %>
+
+        <p>Back to <a href="/login">Login</a></p>
+    </form>
+</div>
+
+<%- include('../partials/footer'); -%>
