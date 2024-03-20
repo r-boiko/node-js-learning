@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import UrlService from '../services/UrlService.js';
+import sessionAuthMiddleware from '../middlewares/sessionAuthMiddleware.js';
 
 export default class CodeController extends Router {
   constructor() {
@@ -10,7 +11,7 @@ export default class CodeController extends Router {
   }
 
   initRoutes = () => {
-    this.get('/:code', (req, res) => {
+    this.get('/:code', sessionAuthMiddleware, (req, res) => {
       const selectedUrl = this.urlService.getUrlByCode(req.params.code);
 
       if (!selectedUrl) {

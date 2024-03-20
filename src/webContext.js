@@ -1,6 +1,7 @@
 import express from 'express';
 import path from 'path';
-import loggedUserMiddleware from './middlewares/loggedUserMiddleware.js';
+import cookieParser from 'cookie-parser';
+import session from 'express-session';
 import UserController from './controllers/UserController.js';
 import UrlController from './controllers/UrlController.js';
 import CodeController from './controllers/CodeController.js';
@@ -9,7 +10,16 @@ import LoginController from './controllers/LoginController.js';
 const initMiddlewares = (app) => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
-  app.use(loggedUserMiddleware);
+  app.use(cookieParser());
+  app.use(
+    session({
+      name: 'sessionId',
+      secret: process.env.SESSION_SECRET,
+      resave: false,
+      saveUninitialized: true,
+      cookie: { httpOnly: true },
+    }),
+  );
 };
 
 const initControllers = (app) => {

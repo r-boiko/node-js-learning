@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import UserService from '../services/UserService.js';
+import sessionAuthMiddleware from '../middlewares/sessionAuthMiddleware.js';
 
 export default class UserController extends Router {
   constructor() {
@@ -10,11 +11,11 @@ export default class UserController extends Router {
   }
 
   initRoutes = () => {
-    this.get('/', (req, res) => {
+    this.get('/', sessionAuthMiddleware, (req, res) => {
       res.json({ message: 'user service main path' });
     });
 
-    this.get('/all', (req, res) => {
+    this.get('/all', sessionAuthMiddleware, (req, res) => {
       const users = this.userService.getUsersPublicData();
       const loggedUser = this.userService.getLoggedUser();
 
