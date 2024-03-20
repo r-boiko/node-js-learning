@@ -20,11 +20,6 @@ export default class UserController extends Router {
       const users = this.userService.getUsersPublicData();
       const loggedUser = this.userService.getLoggedUser();
 
-      if (this.userService.isEmpty()) {
-        res.status(404).json({ error: 'Not found' });
-        return;
-      }
-
       res.render('user/all', { users, loggedUser });
     });
 

@@ -22,7 +22,7 @@ export default class UrlService extends Instance {
   }
 
   getUrlsByUser(user) {
-    if (!user) return null;
+    if (!user) return [];
 
     return this.urlRepository.getUrlsByKey('user', user);
   }

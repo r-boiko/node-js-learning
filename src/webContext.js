@@ -7,6 +7,7 @@ import UserController from './controllers/UserController.js';
 import UrlController from './controllers/UrlController.js';
 import CodeController from './controllers/CodeController.js';
 import LoginController from './controllers/LoginController.js';
+import { redisStore } from './stores/redis.js';
 
 const initMiddlewares = (app) => {
   app.use(express.json());
@@ -14,6 +15,7 @@ const initMiddlewares = (app) => {
   app.use(cookieParser());
   app.use(
     session({
+      store: redisStore,
       name: 'sessionId',
       secret: process.env.SESSION_SECRET,
       resave: false,
