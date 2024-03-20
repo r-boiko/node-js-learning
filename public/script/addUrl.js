@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
       body: JSON.stringify(formData),
     })
       .then((res) => res.json())
-      .then(({ name, url }) => {
+      .then(({ name, url, code }) => {
         const urlList = document.querySelector('#urlList');
         const empty = urlList.querySelector('#empty');
 
@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
         li.innerHTML = `
             <span>name: ${name},</span>
             <span>url: <a href="${url}" target="_blank">${url}</a></span>
+            <span>code: <a href="/code/${code}" target="_blank">${code}</a></span>
         `;
 
         urlList.append(li);
