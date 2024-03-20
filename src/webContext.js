@@ -2,6 +2,7 @@ import express from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
+import { initCsrfTokenMiddleware } from './middlewares/csrfMiddleware.js';
 import UserController from './controllers/UserController.js';
 import UrlController from './controllers/UrlController.js';
 import CodeController from './controllers/CodeController.js';
@@ -20,6 +21,7 @@ const initMiddlewares = (app) => {
       cookie: { httpOnly: true },
     }),
   );
+  app.use(initCsrfTokenMiddleware);
 };
 
 const initControllers = (app) => {

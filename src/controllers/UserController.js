@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import UserService from '../services/UserService.js';
 import sessionAuthMiddleware from '../middlewares/sessionAuthMiddleware.js';
+import { checkCsrfTokenMiddleware } from '../middlewares/csrfMiddleware.js';
 
 export default class UserController extends Router {
   constructor() {
@@ -28,14 +29,17 @@ export default class UserController extends Router {
     });
 
     this.get('/create', (req, res) => {
-      res.render('user/create');
+      res.render('user/create', { csrfToken: req.session.csrfToken });
     });
 
-    this.post('/create', (req, res) => {
+    this.post('/create', checkCsrfTokenMiddleware, (req, res) => {
       const { name, password } = req.body;
 
       if (this.userService.isAlreadyExists(name)) {
-        res.render('user/create', { errorMessage: 'User name already exist' });
+        res.render('user/create', {
+          errorMessage: 'User name already exist',
+          csrfToken: req.session.csrfToken,
+        });
       } else {
         this.userService.create(name, password);
 
