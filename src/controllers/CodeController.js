@@ -1,5 +1,10 @@
 import { Router } from 'express';
 import UrlService from '../services/UrlService.js';
+import sessionAuthMiddleware from '../middlewares/sessionAuthMiddleware.js';
+import {
+  rateLimitByUserIdMiddleware,
+  rateLimitByCodeMiddleware,
+} from '../middlewares/rateLimitMiddleware.js';
 
 export default class CodeController extends Router {
   constructor() {
@@ -10,17 +15,23 @@ export default class CodeController extends Router {
   }
 
   initRoutes = () => {
-    this.get('/:code', (req, res) => {
-      const selectedUrl = this.urlService.getUrlByCode(req.params.code);
+    this.get(
+      '/:code',
+      sessionAuthMiddleware,
+      rateLimitByUserIdMiddleware(),
+      rateLimitByCodeMiddleware(),
+      (req, res) => {
+        const selectedUrl = this.urlService.getUrlByCode(req.params.code);
 
-      if (!selectedUrl) {
-        res.status(404).json({ error: 'Not found' });
-        return;
-      }
+        if (!selectedUrl) {
+          res.status(404).json({ error: 'Not found' });
+          return;
+        }
 
-      this.urlService.updateVisitsByCode(req.params.code);
+        this.urlService.updateVisitsByCode(req.params.code);
 
-      res.redirect(302, selectedUrl.url);
-    });
+        res.redirect(302, selectedUrl.url);
+      },
+    );
   };
 }

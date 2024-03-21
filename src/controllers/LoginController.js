@@ -19,6 +19,7 @@ export default class LoginController extends Router {
 
       if (this.userService.checkPassword(name, password)) {
         this.userService.setLoggedUser(name);
+        req.session.login = name;
 
         res.redirect(302, '/user/all');
       } else {
