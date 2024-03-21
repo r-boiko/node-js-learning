@@ -2,6 +2,7 @@ import express from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
+import helmet from 'helmet';
 import { initCsrfTokenMiddleware } from './middlewares/csrfMiddleware.js';
 import UserController from './controllers/UserController.js';
 import UrlController from './controllers/UrlController.js';
@@ -12,6 +13,7 @@ import { redisStore } from './stores/redis.js';
 const initMiddlewares = (app) => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
+  app.use(helmet());
   app.use(cookieParser());
   app.use(
     session({
