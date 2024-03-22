@@ -13,8 +13,8 @@ export default class UrlController extends Router {
   }
 
   initRoutes = () => {
-    this.get('/info/:code', sessionAuthMiddleware, (req, res) => {
-      const selectedUrl = this.urlService.getUrlByCode(req.params.code);
+    this.get('/info/:code', sessionAuthMiddleware, async (req, res) => {
+      const selectedUrl = await this.urlService.getUrlByCode(req.params.code);
 
       if (!selectedUrl) {
         res.status(404).json({ error: 'Not found' });
@@ -24,18 +24,18 @@ export default class UrlController extends Router {
       res.status(200).json(selectedUrl);
     });
 
-    this.get('/all', sessionAuthMiddleware, (req, res) => {
-      const loggedUser = this.userService.getLoggedUser();
-      const urls = this.urlService.getUrlsByUser(loggedUser);
+    this.get('/all', sessionAuthMiddleware, async (req, res) => {
+      const loggedUser = req.session.login;
+      const urls = await this.urlService.getUrlsByUser(loggedUser);
 
       res.render('url/all', { urls });
     });
 
-    this.post('/add', sessionAuthMiddleware, (req, res) => {
+    this.post('/add', sessionAuthMiddleware, async (req, res) => {
       const { name, url } = req.body;
-      const loggedUser = this.userService.getLoggedUser();
+      const loggedUser = req.session.login;
 
-      const createdUrl = this.urlService.create(name, url, loggedUser);
+      const createdUrl = await this.urlService.create(name, url, loggedUser);
 
       res.status(200).json(createdUrl);
     });

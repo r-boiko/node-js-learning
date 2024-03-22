@@ -1,33 +1,41 @@
-const urlStorage = new Map();
+import { postgresClient } from '../stores/postgres.js';
 
 export default class UrlRepository {
-  save(url) {
-    urlStorage.set(url.code, url);
+  async save(url) {
+    await postgresClient.query(
+      'insert into urls (name, url, "user", code) values ($1, $2, $3, $4)',
+      [url.name, url.url, url.user, url.code],
+    );
   }
 
-  get(code) {
-    return urlStorage.get(code);
+  async get(code) {
+    const data = await postgresClient.query(
+      'select * from urls where code = $1',
+      [code],
+    );
+
+    return data.rows[0];
   }
 
-  getAll() {
-    return urlStorage.values();
+  async getAll() {
+    const data = await postgresClient.query('select * from urls');
+
+    return data.rows;
   }
 
-  getUrlsByKey(key, value) {
-    const result = [];
+  async getUrlsByUser(user) {
+    const data = await postgresClient.query(
+      'select * from urls where "user" = $1',
+      [user],
+    );
 
-    for (let url of this.getAll()) {
-      if (url[key] === value) {
-        result.push(url);
-      }
-    }
-
-    return result;
+    return data.rows;
   }
 
-  updateVisits(code) {
-    const prevValue = this.get(code);
-
-    urlStorage.set(code, { ...prevValue, visits: prevValue.visits + 1 });
+  async updateVisits(code) {
+    await postgresClient.query(
+      'update urls set visits = visits + 1 where code = $1',
+      [code],
+    );
   }
 }

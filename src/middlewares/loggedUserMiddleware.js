@@ -1,9 +1,5 @@
-import UserService from '../services/UserService.js';
-
-const userService = UserService.getInstance();
-
 export default (req, res, next) => {
-  const loggedUser = userService.getLoggedUser();
+  const loggedUser = req.session.login;
 
   if (
     loggedUser ||

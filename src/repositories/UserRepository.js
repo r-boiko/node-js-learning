@@ -1,31 +1,25 @@
-const userStorage = new Map();
+import { postgresClient } from '../stores/postgres.js';
 
 export default class UserRepository {
-  _loggedUser = null;
-
-  save(user) {
-    userStorage.set(user.userId, user);
+  async save(user) {
+    await postgresClient.query(
+      'insert into users (user_id, name, password) values ($1, $2, $3)',
+      [user.userId, user.name, user.password],
+    );
   }
 
-  getUserByName(name) {
-    for (let user of this.getAll()) {
-      if (user.name === name) {
-        return user;
-      }
-    }
+  async getUserByName(name) {
+    const data = await postgresClient.query(
+      'select * from users where name = $1',
+      [name],
+    );
 
-    return null;
+    return data.rows[0];
   }
 
-  getAll() {
-    return userStorage.values();
-  }
+  async getAll() {
+    const data = await postgresClient.query('select * from users');
 
-  set loggedUser(user) {
-    this._loggedUser = user;
-  }
-
-  get loggedUser() {
-    return this._loggedUser;
+    return data.rows;
   }
 }

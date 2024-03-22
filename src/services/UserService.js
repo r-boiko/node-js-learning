@@ -9,22 +9,21 @@ export default class UserService extends Instance {
     this.userRepository = new UserRepository();
   }
 
-  create(name, password) {
+  async create(name, password) {
     const newUser = new UserModel(name, password);
 
-    this.userRepository.save(newUser);
+    await this.userRepository.save(newUser);
 
     return newUser;
   }
 
-  getUsersPublicData() {
-    const users = this.userRepository.getAll();
-
+  async getUsersPublicData() {
+    const users = await this.userRepository.getAll();
     const result = [];
 
     for (const user of users) {
       result.push({
-        id: user.userId,
+        id: user.user_id,
         name: user.name,
       });
     }
@@ -32,8 +31,8 @@ export default class UserService extends Instance {
     return result;
   }
 
-  getUsersAuthData() {
-    const users = this.userRepository.getAll();
+  async getUsersAuthData() {
+    const users = await this.userRepository.getAll();
 
     const result = [];
 
@@ -44,36 +43,28 @@ export default class UserService extends Instance {
     return result;
   }
 
-  isEmpty() {
-    const users = this.userRepository.getAll();
+  async getUserByName(name) {
+    return await this.userRepository.getUserByName(name);
+  }
+
+  async isEmpty() {
+    const users = await this.userRepository.getAll();
 
     return Array.from(users).length === 0;
   }
 
-  getLoggedUser() {
-    return this.userRepository.loggedUser;
-  }
-
-  setLoggedUser(name) {
-    if (!name) return null;
-
-    const user = this.userRepository.getUserByName(name);
-
-    this.userRepository.loggedUser = user.userId;
-  }
-
-  checkPassword(name, password) {
+  async checkPassword(name, password) {
     if (!name || !password) return false;
 
-    const user = this.userRepository.getUserByName(name);
+    const user = await this.userRepository.getUserByName(name);
 
     return user?.password === password;
   }
 
-  isAlreadyExists(name) {
+  async isAlreadyExists(name) {
     if (!name) return false;
 
-    const user = this.userRepository.getUserByName(name);
+    const user = await this.userRepository.getUserByName(name);
 
     return !!user;
   }
