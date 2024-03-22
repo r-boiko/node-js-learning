@@ -16,9 +16,9 @@ export default class UserController extends Router {
       res.json({ message: 'user service main path' });
     });
 
-    this.get('/all', sessionAuthMiddleware, (req, res) => {
-      const users = this.userService.getUsersPublicData();
-      const loggedUser = this.userService.getLoggedUser();
+    this.get('/all', sessionAuthMiddleware, async (req, res) => {
+      const users = await this.userService.getUsersPublicData();
+      const loggedUser = req.session.login;
 
       res.render('user/all', { users, loggedUser });
     });
@@ -27,16 +27,16 @@ export default class UserController extends Router {
       res.render('user/create', { csrfToken: req.session.csrfToken });
     });
 
-    this.post('/create', checkCsrfTokenMiddleware, (req, res) => {
+    this.post('/create', checkCsrfTokenMiddleware, async (req, res) => {
       const { name, password } = req.body;
 
-      if (this.userService.isAlreadyExists(name)) {
+      if (await this.userService.isAlreadyExists(name)) {
         res.render('user/create', {
           errorMessage: 'User name already exist',
           csrfToken: req.session.csrfToken,
         });
       } else {
-        this.userService.create(name, password);
+        await this.userService.create(name, password);
 
         res.render('login', {
           successMessage: 'Created successfully, please login',

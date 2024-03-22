@@ -1,5 +1,4 @@
 import { redisClient } from '../stores/redis.js';
-import UserService from '../services/UserService.js';
 
 const rateLimitMiddleware = (delimiter, limit = 10, duration = 60) => {
   return async (req, res, next) => {
@@ -33,7 +32,7 @@ export const rateLimitByCodeMiddleware = (limit, duration) => {
 
 export const rateLimitByUserIdMiddleware = (limit, duration) => {
   return (req, res, next) => {
-    const user = UserService.getInstance().getLoggedUser();
+    const user = req.session.login;
 
     return rateLimitMiddleware(`userId:${user}`, limit, duration)(
       req,

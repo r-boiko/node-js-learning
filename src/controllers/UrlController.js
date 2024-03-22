@@ -25,7 +25,7 @@ export default class UrlController extends Router {
     });
 
     this.get('/all', sessionAuthMiddleware, (req, res) => {
-      const loggedUser = this.userService.getLoggedUser();
+      const loggedUser = req.session.login;
       const urls = this.urlService.getUrlsByUser(loggedUser);
 
       res.render('url/all', { urls });
@@ -33,7 +33,7 @@ export default class UrlController extends Router {
 
     this.post('/add', sessionAuthMiddleware, (req, res) => {
       const { name, url } = req.body;
-      const loggedUser = this.userService.getLoggedUser();
+      const loggedUser = req.session.login;
 
       const createdUrl = this.urlService.create(name, url, loggedUser);
 
