@@ -10,7 +10,7 @@ export default class UserRepository {
 
   async getUserByName(name) {
     const data = await postgresClient.query(
-      'select * from users where name=$1',
+      'select * from users where name = $1',
       [name],
     );
 

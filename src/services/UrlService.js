@@ -9,25 +9,25 @@ export default class UrlService extends Instance {
     this.urlRepository = new UrlRepository();
   }
 
-  create(name, url, user) {
+  async create(name, url, user) {
     const newUrl = new UrlModel(name, url, user);
 
-    this.urlRepository.save(newUrl);
+    await this.urlRepository.save(newUrl);
 
     return newUrl;
   }
 
-  getUrlByCode(code) {
-    return this.urlRepository.get(code);
+  async getUrlByCode(code) {
+    return await this.urlRepository.get(code);
   }
 
-  getUrlsByUser(user) {
+  async getUrlsByUser(user) {
     if (!user) return [];
 
-    return this.urlRepository.getUrlsByKey('user', user);
+    return await this.urlRepository.getUrlsByUser(user);
   }
 
-  updateVisitsByCode(code) {
-    return this.urlRepository.updateVisits(code);
+  async updateVisitsByCode(code) {
+    return await this.urlRepository.updateVisits(code);
   }
 }

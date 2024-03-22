@@ -20,15 +20,15 @@ export default class CodeController extends Router {
       sessionAuthMiddleware,
       rateLimitByUserIdMiddleware(),
       rateLimitByCodeMiddleware(),
-      (req, res) => {
-        const selectedUrl = this.urlService.getUrlByCode(req.params.code);
+      async (req, res) => {
+        const selectedUrl = await this.urlService.getUrlByCode(req.params.code);
 
         if (!selectedUrl) {
           res.status(404).json({ error: 'Not found' });
           return;
         }
 
-        this.urlService.updateVisitsByCode(req.params.code);
+        await this.urlService.updateVisitsByCode(req.params.code);
 
         res.redirect(302, selectedUrl.url);
       },
