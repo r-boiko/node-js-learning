@@ -1,41 +1,34 @@
-import { postgresClient } from '../stores/postgres.js';
+import Urls from '../entities/Urls.js';
 
 export default class UrlRepository {
   async save(url) {
-    await postgresClient.query(
-      'insert into urls (name, url, "user", code) values ($1, $2, $3, $4)',
-      [url.name, url.url, url.user, url.code],
-    );
+    await Urls.query().insert({
+      name: url.name,
+      url: url.url,
+      user: url.user,
+      code: url.code,
+    });
   }
 
   async get(code) {
-    const data = await postgresClient.query(
-      'select * from urls where code = $1',
-      [code],
-    );
+    const data = await Urls.query().where('code', '=', code);
 
-    return data.rows[0];
+    return data[0];
   }
 
   async getAll() {
-    const data = await postgresClient.query('select * from urls');
+    const data = await Urls.query();
 
-    return data.rows;
+    return data;
   }
 
   async getUrlsByUser(user) {
-    const data = await postgresClient.query(
-      'select * from urls where "user" = $1',
-      [user],
-    );
+    const data = await Urls.query().where('user', '=', user);
 
-    return data.rows;
+    return data;
   }
 
   async updateVisits(code) {
-    await postgresClient.query(
-      'update urls set visits = visits + 1 where code = $1',
-      [code],
-    );
+    await Urls.query().increment('visits', 1).where('code', '=', code);
   }
 }
