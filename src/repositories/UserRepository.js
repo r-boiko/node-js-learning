@@ -1,25 +1,23 @@
-import { postgresClient } from '../stores/postgres.js';
+import Users from '../entities/Users.js';
 
 export default class UserRepository {
   async save(user) {
-    await postgresClient.query(
-      'insert into users (user_id, name, password) values ($1, $2, $3)',
-      [user.userId, user.name, user.password],
-    );
+    await Users.query().insert({
+      user_id: user.userId,
+      name: user.name,
+      password: user.password,
+    });
   }
 
   async getUserByName(name) {
-    const data = await postgresClient.query(
-      'select * from users where name = $1',
-      [name],
-    );
+    const data = await Users.query().where('name', '=', name);
 
-    return data.rows[0];
+    return data[0];
   }
 
   async getAll() {
-    const data = await postgresClient.query('select * from users');
+    const data = await Users.query();
 
-    return data.rows;
+    return data;
   }
 }
