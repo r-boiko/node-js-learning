@@ -3,12 +3,16 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import helmet from 'helmet';
+import { Model } from 'objection';
 import { initCsrfTokenMiddleware } from './middlewares/csrfMiddleware.js';
 import UserController from './controllers/UserController.js';
 import UrlController from './controllers/UrlController.js';
 import CodeController from './controllers/CodeController.js';
 import LoginController from './controllers/LoginController.js';
 import { redisStore } from './stores/redis.js';
+import { knexClient } from './stores/knex.js';
+
+Model.knex(knexClient);
 
 const initMiddlewares = (app) => {
   app.use(express.json());
