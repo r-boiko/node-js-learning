@@ -1,7 +1,3 @@
-/**
- * @type { Object.<string, import("knex").Knex.Config> }
- */
-
 const config = {
   client: 'pg',
   connection: {
