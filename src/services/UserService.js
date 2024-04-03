@@ -1,6 +1,8 @@
+import bcrypt from 'bcrypt';
 import UserRepository from '../repositories/UserRepository.js';
 import UserModel from '../models/UserModel.js';
 import Instance from '../helpers/Instance.js';
+import { hashPassword } from '../utils.js';
 
 export default class UserService extends Instance {
   constructor() {
@@ -10,7 +12,7 @@ export default class UserService extends Instance {
   }
 
   async create(name, password) {
-    const newUser = new UserModel(name, password);
+    const newUser = new UserModel(name, await hashPassword(password));
 
     await this.userRepository.save(newUser);
 
@@ -57,8 +59,9 @@ export default class UserService extends Instance {
     if (!name || !password) return false;
 
     const user = await this.userRepository.getUserByName(name);
+    const match = await bcrypt.compare(password, user.password);
 
-    return user?.password === password;
+    return match;
   }
 
   async isAlreadyExists(name) {
