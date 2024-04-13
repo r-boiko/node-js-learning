@@ -3,8 +3,9 @@ export const up = (knex) => {
     .createTable('users', (table) => {
       table.increments('id');
       table.string('user_id', 255).notNullable().unique();
-      table.string('name', 255).notNullable().unique();
+      table.string('name', 255).notNullable();
       table.string('password', 255).notNullable();
+      table.string('email', 255).notNullable().unique();
       table.timestamp('created_time').notNullable().defaultTo(knex.fn.now());
     })
     .createTable('urls', (table) => {

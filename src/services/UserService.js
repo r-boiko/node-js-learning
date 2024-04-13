@@ -11,8 +11,8 @@ export default class UserService extends Instance {
     this.userRepository = new UserRepository();
   }
 
-  async create(name, password) {
-    const newUser = new UserModel(name, await hashPassword(password));
+  async create(name, password, email) {
+    const newUser = new UserModel(name, await hashPassword(password), email);
 
     await this.userRepository.save(newUser);
 
@@ -49,25 +49,30 @@ export default class UserService extends Instance {
     return await this.userRepository.getUserByName(name);
   }
 
+  async getUserByEmail(email) {
+    return await this.userRepository.getUserByEmail(email);
+  }
+
   async isEmpty() {
     const users = await this.userRepository.getAll();
 
     return Array.from(users).length === 0;
   }
 
-  async checkPassword(name, password) {
-    if (!name || !password) return false;
+  async checkPassword(email, password) {
+    const user = await this.userRepository.getUserByEmail(email);
 
-    const user = await this.userRepository.getUserByName(name);
+    if (!email || !password || !user) return false;
+
     const match = await bcrypt.compare(password, user.password);
 
     return match;
   }
 
-  async isAlreadyExists(name) {
-    if (!name) return false;
+  async isAlreadyExists(email) {
+    if (!email) return false;
 
-    const user = await this.userRepository.getUserByName(name);
+    const user = await this.userRepository.getUserByEmail(email);
 
     return !!user;
   }
