@@ -16,6 +16,10 @@ export const up = (knex) => {
       table.string('code', 255).notNullable();
       table.integer('visits').notNullable().defaultTo(0);
       table.timestamp('created_time').notNullable().defaultTo(knex.fn.now());
+      table.timestamp('expired_time');
+      table.string('type', 255).notNullable();
+      table.boolean('oneTime').notNullable();
+      table.boolean('enabled').notNullable();
     });
 };
 

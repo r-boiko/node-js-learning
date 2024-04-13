@@ -2,12 +2,7 @@ import Users from '../entities/Users.js';
 
 export default class UserRepository {
   async save(user) {
-    await Users.query().insert({
-      user_id: user.userId,
-      name: user.name,
-      password: user.password,
-      email: user.email,
-    });
+    await Users.query().insert(user);
   }
 
   async getUserByName(name) {

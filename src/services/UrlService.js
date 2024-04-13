@@ -9,8 +9,8 @@ export default class UrlService extends Instance {
     this.urlRepository = new UrlRepository();
   }
 
-  async create(name, url, user) {
-    const newUrl = new UrlModel(name, url, user);
+  async create(url) {
+    const newUrl = new UrlModel(url);
 
     await this.urlRepository.save(newUrl);
 

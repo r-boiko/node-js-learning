@@ -6,8 +6,29 @@
     <h1 class="title">All urls</h1>
 
     <form class="form" id="addUrlForm">
+        <label for="name">Url name</label>
         <input type="text" name="name" id="name" placeholder="Enter url name" required>
+
+        <label for="url">Url path</label>
         <input type="text" name="url" id="url" placeholder="Enter url path" required>
+
+        <label for="type">Type</label>
+        <select name="type" id="type" required>
+            <option value="permanent" selected>Permanent</option>
+            <option value="temporary">Temporary</option>
+        </select>
+
+        <label for="expiredTime">Expired time</label>
+        <input type="date" name="expiredTime" id="expiredTime">
+
+        <div class="horizontal-align">
+        <label for="oneTime">One time</label>
+        <input type="checkbox" name="oneTime" id="oneTime">
+
+        <label for="enabled">Enabled</label>
+            <input type="checkbox" name="enabled" id="enabled" checked>
+        </div>
+
         <input type="submit" value="Create">
     </form>
 

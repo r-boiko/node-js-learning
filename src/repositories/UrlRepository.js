@@ -2,12 +2,7 @@ import Urls from '../entities/Urls.js';
 
 export default class UrlRepository {
   async save(url) {
-    await Urls.query().insert({
-      name: url.name,
-      url: url.url,
-      user: url.user,
-      code: url.code,
-    });
+    await Urls.query().insert(url);
   }
 
   async get(code) {

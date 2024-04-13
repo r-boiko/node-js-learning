@@ -31,9 +31,19 @@ body {
         color: green;
     }
 
-    input {
+    label {
+        text-align: left;
+        margin-bottom: 5px;
+    }
+
+    input, select {
         padding: 5px;
         margin-bottom: 10px;
+
+        &[type=radio], &[type=checkbox] {
+            display: flex;
+            align-self: flex-start;
+        }
     }
 }
 
@@ -43,4 +53,10 @@ body {
     .item {
         padding-bottom: 10px;
     }
+}
+
+.horizontal-align {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
