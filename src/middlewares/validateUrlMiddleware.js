@@ -10,7 +10,7 @@ export default async (req, res, next) => {
     ? new Date(selectedUrl.expired_time).getTime() <= new Date().getTime()
     : false;
 
-  if (!selectedUrl.enabled) {
+  if (!selectedUrl?.enabled) {
     return res.status(404).json({ error: 'Url disabled' });
   }
 
