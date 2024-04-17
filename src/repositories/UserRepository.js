@@ -18,7 +18,7 @@ export default class UserRepository {
   }
 
   async getAll() {
-    const data = await Users.query();
+    const data = await Users.query().orderBy('id', 'asc');
 
     return data;
   }

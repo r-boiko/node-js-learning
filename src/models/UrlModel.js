@@ -1,11 +1,19 @@
 import { generateHash } from '../utils.js';
 
 export default class UrlModel {
-  code = generateHash();
   visits = 0;
   created_time = new Date().toISOString();
 
-  constructor({ name, url, loggedUser, type, expiredTime, oneTime, enabled }) {
+  constructor({
+    name,
+    url,
+    code,
+    loggedUser,
+    type,
+    expiredTime,
+    oneTime,
+    enabled,
+  }) {
     this.name = name;
     this.url = url;
     this.user = loggedUser;
@@ -15,5 +23,6 @@ export default class UrlModel {
       : null;
     this.one_time = oneTime;
     this.enabled = enabled;
+    this.code = code || generateHash();
   }
 }

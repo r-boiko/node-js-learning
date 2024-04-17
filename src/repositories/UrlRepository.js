@@ -2,11 +2,17 @@ import Urls from '../entities/Urls.js';
 
 export default class UrlRepository {
   async save(url) {
-    await Urls.query().insert(url);
+    return await Urls.query().insert(url);
   }
 
-  async get(code) {
+  async getByCode(code) {
     const data = await Urls.query().where('code', '=', code);
+
+    return data[0];
+  }
+
+  async getById(id) {
+    const data = await Urls.query().where('id', '=', id);
 
     return data[0];
   }
@@ -18,7 +24,9 @@ export default class UrlRepository {
   }
 
   async getUrlsByUser(user) {
-    const data = await Urls.query().where('user', '=', user);
+    const data = await Urls.query()
+      .where('user', '=', user)
+      .orderBy('id', 'asc');
 
     return data;
   }

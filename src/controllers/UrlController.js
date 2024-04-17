@@ -31,8 +31,8 @@ export default class UrlController extends Router {
       res.render('url/all', { urls });
     });
 
-    this.get('/:code', sessionAuthMiddleware, async (req, res) => {
-      const selectedUrl = await this.urlService.getUrlByCode(req.params.code);
+    this.get('/:id', sessionAuthMiddleware, async (req, res) => {
+      const selectedUrl = await this.urlService.getUrlById(req.params.id);
 
       res.render('url/index', { url: selectedUrl });
     });

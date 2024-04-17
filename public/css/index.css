@@ -60,3 +60,8 @@ body {
     align-items: center;
     justify-content: space-between;
 }
+
+.disabled {
+    display: inline-block;
+    text-decoration: line-through;
+}

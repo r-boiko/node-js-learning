@@ -6,11 +6,14 @@
     <h1 class="title">All urls</h1>
 
     <form class="form" id="addUrlForm">
-        <label for="name">Url name</label>
+        <label for="name">Name</label>
         <input type="text" name="name" id="name" placeholder="Enter url name" required>
 
-        <label for="url">Url path</label>
+        <label for="url">Path</label>
         <input type="text" name="url" id="url" placeholder="Enter url path" required>
+
+        <label for="code">Code (optional)</label>
+        <input type="text" name="code" id="code" placeholder="Enter code">
 
         <label for="type">Type</label>
         <select name="type" id="type" required>
@@ -39,12 +42,24 @@
         <% } %>
 
         <% urls.forEach((url) => { %>
-            <li class="item">
-                <span>name: <%= url.name %>,</span>
-                <span>url: <a href="<%= url.url %>" target="_blank"><%= url.url %></a></span>
-                <span>code: <a href="/code/<%= url.code %>" target="_blank"><%= url.code %></a></span>
-                <span><a href="/url/<%= url.code %>">edit</a></span>
-            </li>
+
+            <% if (url.disabled) { %>
+                <li class="item">
+                    <span class="disabled">
+                        <span>name: <%= url.name %>,</span>
+                        <span>url: <%= url.url %></span>
+                        <span>code: <%= url.code %></span>
+                    </span>
+                    <span><a href="/url/<%= url.id %>">edit</a></span>
+                </li>
+            <% } else { %>
+                <li class="item">
+                    <span>name: <%= url.name %>,</span>
+                    <span>url: <a href="<%= url.url %>" target="_blank"><%= url.url %></a></span>
+                    <span>code: <a href="/code/<%= url.code %>" target="_blank"><%= url.code %></a></span>
+                    <span><a href="/url/<%= url.id %>">edit</a></span>
+                </li>
+            <% } %>
         <% }); %>
 
     </ul>

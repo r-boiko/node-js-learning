@@ -8,6 +8,10 @@ const validateTypeUrl = () => {
 
   type.addEventListener('change', () => {
     expiredTime.disabled = type.value === 'permanent';
+
+    if (type.value === 'permanent') {
+      expiredTime.value = null;
+    }
   });
 };
 

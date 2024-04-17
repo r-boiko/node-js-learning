@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const formData = {
       name: addUrlForm.querySelector('#name').value,
       url: addUrlForm.querySelector('#url').value,
+      code: addUrlForm.querySelector('#code').value,
       type: addUrlForm.querySelector('#type').value,
       expiredTime: addUrlForm.querySelector('#expiredTime').value,
       oneTime: addUrlForm.querySelector('#oneTime').checked,
@@ -21,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
       body: JSON.stringify(formData),
     })
       .then((res) => res.json())
-      .then(({ name, url, code }) => {
+      .then(({ id, name, url, code }) => {
         const urlList = document.querySelector('#urlList');
         const empty = urlList.querySelector('#empty');
 
@@ -34,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <span>name: ${name},</span>
             <span>url: <a href="${url}" target="_blank">${url}</a></span>
             <span>code: <a href="/code/${code}" target="_blank">${code}</a></span>
-            <span><a href="/url/${code}">edit</a></span>
+            <span><a href="/url/${id}">edit</a></span>
         `;
 
         urlList.append(li);
