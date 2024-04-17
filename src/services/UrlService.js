@@ -12,7 +12,9 @@ export default class UrlService extends Instance {
   async create(url) {
     const newUrl = new UrlModel(url);
 
-    return await this.urlRepository.save(newUrl);
+    const createdUrl = await this.urlRepository.save(newUrl);
+
+    return this.validateUrls([createdUrl])[0];
   }
 
   async getUrlByCode(code) {
@@ -48,7 +50,7 @@ export default class UrlService extends Instance {
 
       return {
         ...url,
-        disabled: isOneTime || isExpiredTime,
+        disabled: !url.enabled || isOneTime || isExpiredTime,
       };
     });
   }

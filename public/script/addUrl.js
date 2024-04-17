@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
       body: JSON.stringify(formData),
     })
       .then((res) => res.json())
-      .then(({ id, name, url, code }) => {
+      .then(({ id, name, url, code, disabled }) => {
         const urlList = document.querySelector('#urlList');
         const empty = urlList.querySelector('#empty');
 
@@ -31,12 +31,23 @@ document.addEventListener('DOMContentLoaded', () => {
         const li = document.createElement('li');
         li.classList.add('item');
 
-        li.innerHTML = `
+        if (disabled) {
+          li.innerHTML = `
+            <span class="disabled">
+                <span>name: ${name},</span>
+                <span>url: ${url}</span>
+                <span>code: ${code}</span>
+            </span>
+            <span><a href="/url/${id}">edit</a></span>
+        `;
+        } else {
+          li.innerHTML = `
             <span>name: ${name},</span>
             <span>url: <a href="${url}" target="_blank">${url}</a></span>
             <span>code: <a href="/code/${code}" target="_blank">${code}</a></span>
             <span><a href="/url/${id}">edit</a></span>
         `;
+        }
 
         urlList.append(li);
       })

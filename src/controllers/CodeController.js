@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import UrlService from '../services/UrlService.js';
 import sessionAuthMiddleware from '../middlewares/sessionAuthMiddleware.js';
+import validateUrlMiddleware from '../middlewares/validateUrlMiddleware.js';
 import {
   rateLimitByUserIdMiddleware,
   rateLimitByCodeMiddleware,
@@ -18,6 +19,7 @@ export default class CodeController extends Router {
     this.get(
       '/:code',
       sessionAuthMiddleware,
+      validateUrlMiddleware,
       rateLimitByUserIdMiddleware(),
       rateLimitByCodeMiddleware(),
       async (req, res) => {
