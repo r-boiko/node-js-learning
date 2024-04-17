@@ -13,7 +13,7 @@ export default class UrlModel {
     this.expired_time = expiredTime
       ? new Date(expiredTime).toISOString()
       : null;
-    this.oneTime = oneTime;
+    this.one_time = oneTime;
     this.enabled = enabled;
   }
 }

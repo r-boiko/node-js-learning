@@ -1,18 +1,5 @@
-const validateTypeUrl = () => {
-  const type = document.querySelector('#type');
-  const expiredTime = document.querySelector('#expiredTime');
-
-  expiredTime.disabled = type.value === 'permanent';
-
-  type.addEventListener('change', () => {
-    expiredTime.disabled = type.value === 'permanent';
-  });
-};
-
 document.addEventListener('DOMContentLoaded', () => {
   const addUrlForm = document.querySelector('#addUrlForm');
-
-  validateTypeUrl();
 
   addUrlForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -47,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <span>name: ${name},</span>
             <span>url: <a href="${url}" target="_blank">${url}</a></span>
             <span>code: <a href="/code/${code}" target="_blank">${code}</a></span>
+            <span><a href="/url/${code}">edit</a></span>
         `;
 
         urlList.append(li);

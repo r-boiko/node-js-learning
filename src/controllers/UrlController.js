@@ -31,6 +31,12 @@ export default class UrlController extends Router {
       res.render('url/all', { urls });
     });
 
+    this.get('/:code', sessionAuthMiddleware, async (req, res) => {
+      const selectedUrl = await this.urlService.getUrlByCode(req.params.code);
+
+      res.render('url/index', { url: selectedUrl });
+    });
+
     this.post('/add', sessionAuthMiddleware, async (req, res) => {
       const loggedUser = req.session.login;
 
@@ -40,6 +46,12 @@ export default class UrlController extends Router {
       });
 
       res.status(200).json(createdUrl);
+    });
+
+    this.post('/update', sessionAuthMiddleware, async (req, res) => {
+      const updatedUrl = await this.urlService.updateUrl(req.body);
+
+      res.status(200).json(updatedUrl);
     });
   };
 }

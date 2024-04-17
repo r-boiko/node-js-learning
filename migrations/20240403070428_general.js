@@ -18,7 +18,7 @@ export const up = (knex) => {
       table.timestamp('created_time').notNullable().defaultTo(knex.fn.now());
       table.timestamp('expired_time');
       table.string('type', 255).notNullable();
-      table.boolean('oneTime').notNullable();
+      table.boolean('one_time').notNullable();
       table.boolean('enabled').notNullable();
     });
 };

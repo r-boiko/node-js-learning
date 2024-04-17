@@ -26,4 +26,8 @@ export default class UrlRepository {
   async updateVisits(code) {
     await Urls.query().increment('visits', 1).where('code', '=', code);
   }
+
+  async updateUrl(data) {
+    return await Urls.query().update(data).where('id', data.id);
+  }
 }

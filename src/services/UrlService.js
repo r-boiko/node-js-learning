@@ -30,4 +30,8 @@ export default class UrlService extends Instance {
   async updateVisitsByCode(code) {
     return await this.urlRepository.updateVisits(code);
   }
+
+  async updateUrl(data) {
+    return await this.urlRepository.updateUrl(data);
+  }
 }

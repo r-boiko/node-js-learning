@@ -43,6 +43,7 @@
                 <span>name: <%= url.name %>,</span>
                 <span>url: <a href="<%= url.url %>" target="_blank"><%= url.url %></a></span>
                 <span>code: <a href="/code/<%= url.code %>" target="_blank"><%= url.code %></a></span>
+                <span><a href="/url/<%= url.code %>">edit</a></span>
             </li>
         <% }); %>
 
@@ -50,6 +51,7 @@
 
 </div>
 
+<script src="/script/helpers.js"></script>
 <script src="/script/addUrl.js"></script>
 
 <%- include('../partials/footer'); -%>
