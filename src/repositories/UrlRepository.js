@@ -5,6 +5,10 @@ export default class UrlRepository {
     return await Urls.query().insert(url);
   }
 
+  async deleteUrlById(id) {
+    return await Urls.query().deleteById(id);
+  }
+
   async getByCode(code) {
     const data = await Urls.query().where('code', '=', code);
 

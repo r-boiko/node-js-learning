@@ -17,6 +17,10 @@ export default class UrlService extends Instance {
     return this.validateUrls([createdUrl])[0];
   }
 
+  async deleteUrlById(id) {
+    return await this.urlRepository.deleteUrlById(id);
+  }
+
   async getUrlByCode(code) {
     return await this.urlRepository.getByCode(code);
   }

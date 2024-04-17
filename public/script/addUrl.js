@@ -38,14 +38,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span>url: ${url}</span>
                 <span>code: ${code}</span>
             </span>
-            <span><a href="/url/${id}">edit</a></span>
+            <button><a href="/url/${id}">edit</a></button>
+            <button><a href="/url/delete/${id}" class="delete">delete</a></button>
         `;
         } else {
           li.innerHTML = `
             <span>name: ${name},</span>
             <span>url: <a href="${url}" target="_blank">${url}</a></span>
             <span>code: <a href="/code/${code}" target="_blank">${code}</a></span>
-            <span><a href="/url/${id}">edit</a></span>
+            <button><a href="/url/${id}">edit</a></button>
+            <button><a href="/url/delete/${id}" class="delete">delete</a></button>
         `;
         }
 

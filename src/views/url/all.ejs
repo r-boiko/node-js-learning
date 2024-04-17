@@ -50,14 +50,16 @@
                         <span>url: <%= url.url %></span>
                         <span>code: <%= url.code %></span>
                     </span>
-                    <span><a href="/url/<%= url.id %>">edit</a></span>
+                    <button><a href="/url/<%= url.id %>">edit</a></button>
+                    <button><a href="/url/delete/<%= url.id %>" class="delete">delete</a></button>
                 </li>
             <% } else { %>
                 <li class="item">
                     <span>name: <%= url.name %>,</span>
                     <span>url: <a href="<%= url.url %>" target="_blank"><%= url.url %></a></span>
                     <span>code: <a href="/code/<%= url.code %>" target="_blank"><%= url.code %></a></span>
-                    <span><a href="/url/<%= url.id %>">edit</a></span>
+                    <button><a href="/url/<%= url.id %>">edit</a></button>
+                    <button><a href="/url/delete/<%= url.id %>" class="delete">delete</a></button>
                 </li>
             <% } %>
         <% }); %>
@@ -68,5 +70,6 @@
 
 <script src="/script/helpers.js"></script>
 <script src="/script/addUrl.js"></script>
+<script src="/script/deleteUrl.js"></script>
 
 <%- include('../partials/footer'); -%>

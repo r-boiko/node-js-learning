@@ -53,5 +53,11 @@ export default class UrlController extends Router {
 
       res.status(200).json(updatedUrl);
     });
+
+    this.delete('/delete/:id', sessionAuthMiddleware, async (req, res) => {
+      const id = await this.urlService.deleteUrlById(req.params.id);
+
+      res.status(200).json({ id });
+    });
   };
 }
