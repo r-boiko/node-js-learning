@@ -41,3 +41,11 @@ export const rateLimitByUserIdMiddleware = (limit, duration) => {
     );
   };
 };
+
+export const rateLimitByIpMiddleware = (limit, duration) => {
+  return (req, res, next) => {
+    const ip = req.ip;
+
+    return rateLimitMiddleware(`ip:${ip}`, limit, duration)(req, res, next);
+  };
+};

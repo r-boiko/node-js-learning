@@ -2,16 +2,21 @@ import Urls from '../entities/Urls.js';
 
 export default class UrlRepository {
   async save(url) {
-    await Urls.query().insert({
-      name: url.name,
-      url: url.url,
-      user: url.user,
-      code: url.code,
-    });
+    return await Urls.query().insert(url);
   }
 
-  async get(code) {
+  async deleteUrlById(id) {
+    return await Urls.query().deleteById(id);
+  }
+
+  async getByCode(code) {
     const data = await Urls.query().where('code', '=', code);
+
+    return data[0];
+  }
+
+  async getById(id) {
+    const data = await Urls.query().where('id', '=', id);
 
     return data[0];
   }
@@ -23,12 +28,18 @@ export default class UrlRepository {
   }
 
   async getUrlsByUser(user) {
-    const data = await Urls.query().where('user', '=', user);
+    const data = await Urls.query()
+      .where('user', '=', user)
+      .orderBy('id', 'asc');
 
     return data;
   }
 
   async updateVisits(code) {
     await Urls.query().increment('visits', 1).where('code', '=', code);
+  }
+
+  async updateUrl(data) {
+    return await Urls.query().update(data).where('id', data.id);
   }
 }

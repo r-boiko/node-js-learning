@@ -1,0 +1,45 @@
+<%- include('../partials/header'); -%>
+
+<%- include('../partials/navigation'); -%>
+
+<div class="container">
+    <h1 class="title">Url - edit</h1>
+
+    <form class="form" id="updateUrlForm">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" placeholder="Enter url name" value="<%= url.name %>" required>
+
+        <label for="url">Path</label>
+        <input type="text" name="url" id="url" placeholder="Enter url path" value="<%= url.url %>" required>
+
+        <label for="code">Code</label>
+        <input type="text" name="code" id="code" placeholder="Enter code" value="<%= url.code %>" required>
+
+        <label for="type">Type</label>
+        <select name="type" id="type" required>
+            <option value="permanent" <%= url.type === 'permanent' && 'selected' %>>Permanent</option>
+            <option value="temporary" <%= url.type === 'temporary' && 'selected' %>>Temporary</option>
+        </select>
+
+        <label for="expiredTime">Expired time</label>
+        <input type="date" name="expiredTime" id="expiredTime" value="<%= url.expired_time && new Date(url.expired_time).toISOString().split('T')[0]; %>">
+
+        <div class="horizontal-align">
+            <label for="oneTime">One time</label>
+            <input type="checkbox" name="oneTime" id="oneTime" <%= url.one_time && 'checked' %>>
+
+            <label for="enabled">Enabled</label>
+            <input type="checkbox" name="enabled" id="enabled" <%= url.enabled && 'checked' %>>
+        </div>
+
+        <input type="text" name="id" id="id" value="<%= url.id %>" hidden required>
+
+        <input type="submit" value="Update">
+    </form>
+
+</div>
+
+<script src="/script/helpers.js"></script>
+<script src="/script/updateUrl.js"></script>
+
+<%- include('../partials/footer'); -%>

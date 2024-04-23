@@ -9,25 +9,53 @@ export default class UrlService extends Instance {
     this.urlRepository = new UrlRepository();
   }
 
-  async create(name, url, user) {
-    const newUrl = new UrlModel(name, url, user);
+  async create(url) {
+    const newUrl = new UrlModel(url);
 
-    await this.urlRepository.save(newUrl);
+    const createdUrl = await this.urlRepository.save(newUrl);
 
-    return newUrl;
+    return this.validateUrls([createdUrl])[0];
+  }
+
+  async deleteUrlById(id) {
+    return await this.urlRepository.deleteUrlById(id);
   }
 
   async getUrlByCode(code) {
-    return await this.urlRepository.get(code);
+    return await this.urlRepository.getByCode(code);
+  }
+
+  async getUrlById(id) {
+    return await this.urlRepository.getById(id);
   }
 
   async getUrlsByUser(user) {
     if (!user) return [];
 
-    return await this.urlRepository.getUrlsByUser(user);
+    const urls = await this.urlRepository.getUrlsByUser(user);
+
+    return this.validateUrls(urls);
   }
 
   async updateVisitsByCode(code) {
     return await this.urlRepository.updateVisits(code);
+  }
+
+  async updateUrl(data) {
+    return await this.urlRepository.updateUrl(data);
+  }
+
+  validateUrls(urls) {
+    return urls.map((url) => {
+      const isOneTime = url.one_time && url.visits > 0;
+      const isExpiredTime = url.expired_time
+        ? new Date(url.expired_time).getTime() <= new Date().getTime()
+        : false;
+
+      return {
+        ...url,
+        disabled: !url.enabled || isOneTime || isExpiredTime,
+      };
+    });
   }
 }

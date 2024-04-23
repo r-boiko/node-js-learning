@@ -28,15 +28,15 @@ export default class UserController extends Router {
     });
 
     this.post('/create', checkCsrfTokenMiddleware, async (req, res) => {
-      const { name, password } = req.body;
+      const { name, password, email } = req.body;
 
-      if (await this.userService.isAlreadyExists(name)) {
+      if (await this.userService.isAlreadyExists(email)) {
         res.render('user/create', {
-          errorMessage: 'User name already exist',
+          errorMessage: 'User already exist',
           csrfToken: req.session.csrfToken,
         });
       } else {
-        await this.userService.create(name, password);
+        await this.userService.create(name, password, email);
 
         res.render('login', {
           successMessage: 'Created successfully, please login',

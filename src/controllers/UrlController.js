@@ -31,13 +31,33 @@ export default class UrlController extends Router {
       res.render('url/all', { urls });
     });
 
+    this.get('/:id', sessionAuthMiddleware, async (req, res) => {
+      const selectedUrl = await this.urlService.getUrlById(req.params.id);
+
+      res.render('url/index', { url: selectedUrl });
+    });
+
     this.post('/add', sessionAuthMiddleware, async (req, res) => {
-      const { name, url } = req.body;
       const loggedUser = req.session.login;
 
-      const createdUrl = await this.urlService.create(name, url, loggedUser);
+      const createdUrl = await this.urlService.create({
+        loggedUser,
+        ...req.body,
+      });
 
       res.status(200).json(createdUrl);
+    });
+
+    this.post('/update', sessionAuthMiddleware, async (req, res) => {
+      const updatedUrl = await this.urlService.updateUrl(req.body);
+
+      res.status(200).json(updatedUrl);
+    });
+
+    this.delete('/delete/:id', sessionAuthMiddleware, async (req, res) => {
+      const id = await this.urlService.deleteUrlById(req.params.id);
+
+      res.status(200).json({ id });
     });
   };
 }

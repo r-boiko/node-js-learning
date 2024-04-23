@@ -6,8 +6,32 @@
     <h1 class="title">All urls</h1>
 
     <form class="form" id="addUrlForm">
+        <label for="name">Name</label>
         <input type="text" name="name" id="name" placeholder="Enter url name" required>
+
+        <label for="url">Path</label>
         <input type="text" name="url" id="url" placeholder="Enter url path" required>
+
+        <label for="code">Code (optional)</label>
+        <input type="text" name="code" id="code" placeholder="Enter code">
+
+        <label for="type">Type</label>
+        <select name="type" id="type" required>
+            <option value="permanent" selected>Permanent</option>
+            <option value="temporary">Temporary</option>
+        </select>
+
+        <label for="expiredTime">Expired time</label>
+        <input type="date" name="expiredTime" id="expiredTime">
+
+        <div class="horizontal-align">
+        <label for="oneTime">One time</label>
+        <input type="checkbox" name="oneTime" id="oneTime">
+
+        <label for="enabled">Enabled</label>
+            <input type="checkbox" name="enabled" id="enabled" checked>
+        </div>
+
         <input type="submit" value="Create">
     </form>
 
@@ -18,17 +42,34 @@
         <% } %>
 
         <% urls.forEach((url) => { %>
-            <li class="item">
-                <span>name: <%= url.name %>,</span>
-                <span>url: <a href="<%= url.url %>" target="_blank"><%= url.url %></a></span>
-                <span>code: <a href="/code/<%= url.code %>" target="_blank"><%= url.code %></a></span>
-            </li>
+
+            <% if (url.disabled) { %>
+                <li class="item">
+                    <span class="disabled">
+                        <span>name: <%= url.name %>,</span>
+                        <span>url: <%= url.url %></span>
+                        <span>code: <%= url.code %></span>
+                    </span>
+                    <button><a href="/url/<%= url.id %>">edit</a></button>
+                    <button><a href="/url/delete/<%= url.id %>" class="delete">delete</a></button>
+                </li>
+            <% } else { %>
+                <li class="item">
+                    <span>name: <%= url.name %>,</span>
+                    <span>url: <a href="<%= url.url %>" target="_blank"><%= url.url %></a></span>
+                    <span>code: <a href="/code/<%= url.code %>" target="_blank"><%= url.code %></a></span>
+                    <button><a href="/url/<%= url.id %>">edit</a></button>
+                    <button><a href="/url/delete/<%= url.id %>" class="delete">delete</a></button>
+                </li>
+            <% } %>
         <% }); %>
 
     </ul>
 
 </div>
 
+<script src="/script/helpers.js"></script>
 <script src="/script/addUrl.js"></script>
+<script src="/script/deleteUrl.js"></script>
 
 <%- include('../partials/footer'); -%>

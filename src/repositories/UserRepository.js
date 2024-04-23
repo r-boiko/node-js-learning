@@ -2,11 +2,7 @@ import Users from '../entities/Users.js';
 
 export default class UserRepository {
   async save(user) {
-    await Users.query().insert({
-      user_id: user.userId,
-      name: user.name,
-      password: user.password,
-    });
+    await Users.query().insert(user);
   }
 
   async getUserByName(name) {
@@ -15,8 +11,14 @@ export default class UserRepository {
     return data[0];
   }
 
+  async getUserByEmail(email) {
+    const data = await Users.query().where('email', '=', email);
+
+    return data[0];
+  }
+
   async getAll() {
-    const data = await Users.query();
+    const data = await Users.query().orderBy('id', 'asc');
 
     return data;
   }

@@ -1,13 +1,15 @@
 import { generateHash } from '../utils.js';
 
 export default class UserModel {
-  userId = generateHash();
+  user_id = generateHash();
   name;
   password;
-  created_time = Date.now();
+  email;
+  created_time = new Date().toISOString();
 
-  constructor(name, password) {
+  constructor(name, password, email) {
     this.name = name;
     this.password = password;
+    this.email = email;
   }
 }
